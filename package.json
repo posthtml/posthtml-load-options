@@ -1,0 +1,70 @@
+{
+  "name": "posthtml-load-options",
+  "version": "1.0.0-alpha",
+  "description": "Load Options for PostHTML",
+  "main": "index.js",
+  "scripts": {
+    "clean": "echo '=> Cleaning' && rm -rf .nyc_output coverage test/node_modules",
+    "pretest": "echo '=> Linting' && npm run clean && standard",
+    "test": "echo '=> Testing' && nyc ava 'test/index.js'",
+    "start": "echo '=> Starting' && npm test"
+  },
+  "dependencies": {
+    "cosmiconfig": "^1.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
+    "coveralls": "^2.11.9",
+    "nyc": "^6.4.4",
+    "posthtml": "^0.8.7",
+    "standard": "^7.1.1"
+  },
+  "ava": {
+    "babel": "inherit"
+  },
+  "nyc": {
+    "all": true,
+    "require": "babel-register",
+    "include": [
+      "lib",
+      "test"
+    ],
+    "extension": [
+      ".js"
+    ]
+  },
+  "standard": {
+    "ignore": []
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    },
+    "presets": [
+      "es2015"
+    ]
+  },
+  "keywords": [
+    "PostHTML",
+    "Autoload",
+    "Options"
+  ],
+  "author": {
+    "name": "Michael Ciniawky",
+    "email": "michael.ciniawsky@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michael-ciniawsky/posthtml-load-options.git"
+  },
+  "bugs": {
+    "url": "https://github.com/michael-ciniawsky/posthtml-load-options/issues"
+  },
+  "homepage": "https://github.com/michael-ciniawsky/posthtml-load-options#readme",
+  "license": "MIT"
+}
