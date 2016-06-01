@@ -1,0 +1,15 @@
+{
+  "name": "loads-options-test",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Autoload Options for PostHTML",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "posthtml": "^5.0.21"
+  },
+  "posthtml": {
+    "sync": false,
+    "skipParse": false
+  }
+}
