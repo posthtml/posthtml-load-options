@@ -1,6 +1,6 @@
 {
   "name": "posthtml-load-options",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha2",
   "description": "Load Options for PostHTML",
   "main": "index.js",
   "scripts": {
@@ -50,11 +50,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michael-ciniawsky/posthtml-load-options.git"
+    "url": "git+https://github.com/posthtml/posthtml-load-options.git"
   },
   "bugs": {
-    "url": "https://github.com/michael-ciniawsky/posthtml-load-options/issues"
+    "url": "https://github.com/posthtml/posthtml-load-options/issues"
   },
-  "homepage": "https://github.com/michael-ciniawsky/posthtml-load-options#readme",
+  "homepage": "https://github.com/posthtml/posthtml-load-options#readme",
   "license": "MIT"
 }
