@@ -7,7 +7,7 @@
 [![chat][chat]][chat-url]
 
 <div align="center">
-  <img width="200" height="200" title="Load Options"
+  <img width="140" height="120" title="Load Options"
     src="https://posthtml.github.io/posthtml-load-options/logo.svg"
   <a href="https://github.com/posthtml/posthtml">
     <img width="220" height="200" title="PostHTML" hspace="20"     src="http://posthtml.github.io/posthtml/logo.svg">
