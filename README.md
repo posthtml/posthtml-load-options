@@ -8,7 +8,7 @@
 
 <div align="center">
   <img width="200" height="200" title="Load Options"
-    src="https://michael-ciniawsky.github.io/posthtml-load-options/logo.svg"
+    src="https://posthtml.github.io/posthtml-load-options/logo.svg"
   <a href="https://github.com/posthtml/posthtml">
     <img width="220" height="200" title="PostHTML" hspace="20"     src="http://posthtml.github.io/posthtml/logo.svg">
   </a>
@@ -98,7 +98,7 @@ module.exports = (ctx) => {
 **`parser`**:
 
 ```js
-'parser': 'posthtml-sugarss'
+parser: 'posthtml-sugarss'
 ```
 
 **`from`**:
@@ -116,7 +116,7 @@ to: 'path/to/dest/file.html'
 **`render`**:
 
 ```js
-'render': 'posthtml-jsx'
+render: 'posthtml-jsx'
 ```
 
 ### Context
@@ -125,12 +125,9 @@ When using a function in `(posthtml.config.js)`, it's possible to pass context t
 
 <h2 align="center">Example</h2>
 
-### <img width="80" height="80" src="https://worldvectorlogo.com/logos/nodejs-icon.svg">
-
-
 **posthtml.config.js**
 ```js
-export default = (ctx) => {
+export default config = (ctx) => {
   return {
     parser: ctx.ext === '.sml' ? 'posthtml-sugarml' : false,
     from: 'client/index.html',
@@ -138,6 +135,8 @@ export default = (ctx) => {
   }
 }
 ```
+
+### <img width="80" height="80" src="https://worldvectorlogo.com/logos/nodejs-icon.svg">
 
 ```js
 import { dirname } from 'path'
