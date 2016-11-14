@@ -1,0 +1,5 @@
+{
+  "parser": "posthtml-sugarml",
+  "from": "./fixtures/index.html",
+  "to": "./expect/index.html"
+}
