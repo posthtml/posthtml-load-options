@@ -1,151 +1,195 @@
-[![NPM][npm]][npm-url]
-[![Node][node]][node-url]
-[![Dependencies][deps]][deps-url]
-[![DevDependencies][devdeps]][devdeps-url]
-[![Standard Code Style][style]][style-url]
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![tests][tests]][tests-url]
+[![coverage][cover]][cover-url]
+[![code style][style]][style-url]
+[![chat][chat]][chat-url]
 
-# PostHTML Load Options <img align="right" width="220" height="200" title="PostHTML logo" src="http://posthtml.github.io/posthtml/logo.svg">
+<div align="center">
+  <img width="200" height="200" title="Load Options"
+    src="https://michael-ciniawsky.github.io/posthtml-load-options/logo.svg"
+  <a href="https://github.com/posthtml/posthtml">
+    <img width="220" height="200" title="PostHTML" hspace="20"     src="http://posthtml.github.io/posthtml/logo.svg">
+  </a>
+  <h1>Load Options</h1>
+  <p>Autoload Options for PostHTML<p>
+</div>
 
-## Status
-
-| Branch               | Build                     | Coverage                 |
-|:--------------------:|:-------------------------:|:------------------------:|
-|  Master              | ![travis]                 | ![cover]                 |
-|  Release/v1.0.0      | ![travis-rel]             | ![cover-rel]             |
-
-## Install
+<h2 align="center">Install</h2>
 
 ```bash
 npm i -D posthtml-load-options
 ```
 
-## Options
-#### package.json
+<h2 align="center">Usage</h2>
+
+### `package.json`
+
+Create a **`posthtml`** section in **`package.json`**.
+
+```
+Root
+  |– client
+  |– public
+  |
+  |- package.json
+```
 
 ```json
 {
- "dependencies": {
-   "posthtml": "^0.8.7"
- },
- "posthtml": {
-   "sync": false,
-   "skipParse": false
+  "dependencies": {
+    "posthtml-sugarml": "^1.0.0"
+  },
+  "posthtml": {
+    "parser": "posthtml-sugarss",
+    "from": "path/to/src/file.html",
+    "to": "path/to/dest/file.html"
   }
 }
 ```
 
-#### posthtml.config.js
+### `.posthtmlrc`
 
-```js
-module.exports = {
-  sync: false,
-  skipParse: false
-}
+Create a **`.posthtmlrc`** file.
+
 ```
-#### posthtmlrc.json
+Root
+  |– client
+  |– public
+  |
+  |-.posthtmlrc
+  |- package.json
+```
 
 ```json
 {
-  "sync": false,
-  "skipParse": false
+  "parser": "posthtml-sugarss",
+  "from": "path/to/src/file.html",
+  "to": "path/to/dest/file.html"
 }
 ```
 
-## Usage
-#### Default
+### `posthtml.config.js`
+
+Create a **`posthtml.config.js`** file.
+
+```
+Root
+  |– client
+  |– public
+  |
+  |- posthtml.config.js
+  |- package.json
+```
 
 ```js
-'use strict'
+module.exports = (ctx) => {
+  return {
+    parser: ctx.ext ==='.sml' ? 'posthtml-sugarss' : false,
+    from: 'path/to/src/file.html',
+    to: 'path/to/dest/file.html'
+  }
+}
+```
 
-const fs = require('fs')
+<h2 align="center">Options</h2>
 
-const posthtml = require('posthtml')
-const optionsrc = require('posthtml-load-options')()
+**`parser`**:
 
-const html = fs.readFileSync('./index.html', 'utf-8')
+```js
+'parser': 'posthtml-sugarss'
+```
 
-posthtmlrc.then((options) => {
-  posthtml([])
-    .process(html, options)
-    .then(result => console.log(result.html))
+**`from`**:
+
+```js
+from: 'path/to/dest/file.html'
+```
+
+**`to`**:
+
+```js
+to: 'path/to/dest/file.html'
+```
+
+**`render`**:
+
+```js
+'render': 'posthtml-jsx'
+```
+
+### Context
+
+When using a function in `(posthtml.config.js)`, it's possible to pass context to `posthtml-load-options`, which will be evaluated before loading your options. By default `ctx.env (process.env.NODE_ENV)` and `ctx.cwd (process.cwd())` are available.
+
+<h2 align="center">Example</h2>
+
+### <img width="80" height="80" src="https://worldvectorlogo.com/logos/nodejs-icon.svg">
+
+
+**posthtml.config.js**
+```js
+export default = (ctx) => {
+  return {
+    parser: ctx.ext === '.sml' ? 'posthtml-sugarml' : false,
+    from: 'client/index.html',
+    to: 'public/index.html'
+  }
+}
+```
+
+```js
+import { dirname } from 'path'
+import { readFileSync } from 'fs'
+
+import posthtml from 'posthtml'
+import optionsrc from 'posthtml-load-options'
+
+const sml = readFileSync('./client/index.sml', 'utf8')
+
+const ctx = { ext: dirname(sml) }
+
+optionsrc(ctx).then((options) => {
+  posthtml()
+    .process(sml, options)
+    .then((result) => console.log(result.html))
 }))
 ```
 
-#### Custom
+<h2 align="center">Maintainer</h2>
 
-```js
-'use strict'
+<table>
+  <tbody>
+   <tr>
+    <td align="center">
+      <img width="150 height="150"
+      src="https://avatars.githubusercontent.com/u/5419992?v=3&s=150">
+      <br />
+      <a href="https://github.com/michael-ciniawsky">Michael Ciniawsky</a>
+    </td>
+  </tr>
+  <tbody>
+</table>
 
-const fs = require('fs')
-
-const posthtml = require('posthtml')
-const optionsrc = require('posthtml-load-options')('./path/to/posthtmlrc.json')
-
-const html = fs.readFileSync('./index.html', 'utf-8')
-
-posthtmlrc.then((options) => {
-  posthtml([])
-    .process(html, options)
-    .then(result => console.log(result.html))
-}))
-```
-
-## LICENSE [![License MIT][license]][license-url]
-
-> License (MIT)
-
-> Copyright (c) 2016 Michael Ciniawsky
-
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-> The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 [npm]: https://img.shields.io/npm/v/posthtml-load-options.svg
 [npm-url]: https://npmjs.com/package/posthtml-load-options
 
-[node]: https://img.shields.io/node/v/gh-badges.svg?maxAge=2592000
-[node-url]: https://nodejs.org
+[node]: https://img.shields.io/node/v/posthtml-load-options.svg
+[node-url]: https://nodejs.org/
 
 [deps]: https://david-dm.org/michael-ciniawsky/posthtml-load-options.svg
 [deps-url]: https://david-dm.org/michael-ciniawsky/posthtml-load-options
 
-[devdeps]: https://david-dm.org/michael-ciniawsky/posthtml-load-options/dev-status.svg
-[devdeps-url]: https://david-dm.org/michael-ciniawsky/posthtml-load-options#info=devDependencies
-
-[style]: https://img.shields.io/badge/code%20style-standard-yellow.svg
-[style-url]: http://standardjs.com/
-
-[travis]: http://img.shields.io/travis/michael-ciniawsky/posthtml-load-options.svg
-[travis-url]: https://travis-ci.org/michael-ciniawsky/posthtml-load-options
-
-[travis-rel]: http://img.shields.io/travis/michael-ciniawsky/posthtml-load-options.svg?branch=release/1.0.0
-[travis-rel-url]:https://travis-ci.org/michael-ciniawsky/posthtml-load-options?branch=release/1.0.0
-
-[travis-dev]: http://img.shields.io/travis/michael-ciniawsky/posthtml-load-options.svg?branch=develop
-[travis-dev-url]: https://travis-ci.org/michael-ciniawsky/posthtml-load-options?branch=develop
+[tests]: http://img.shields.io/travis/michael-ciniawsky/posthtml-load-options.svg
+[tests-url]: https://travis-ci.org/michael-ciniawsky/posthtml-load-options
 
 [cover]: https://coveralls.io/repos/github/michael-ciniawsky/posthtml-load-options/badge.svg?branch=master
 [cover-url]: https://coveralls.io/github/michael-ciniawsky/posthtml-load-options?branch=master
 
-[cover-rel]: https://coveralls.io/repos/github/michael-ciniawsky/posthtml-load-options/badge.svg?branch=release/1.0.0
-[cover-rel-url]: https://coveralls.io/github/michael-ciniawsky/posthtml-load-options?branch=release/1.0.0
+[style]: https://img.shields.io/badge/code%20style-standard-yellow.svg
+[style-url]: http://standardjs.com/
 
-[cover-dev]: https://coveralls.io/repos/github/michael-ciniawsk/posthtml-load-options/badge.svg?branch=develop
-[cover-dev-url]: https://coveralls.io/github/michael-ciniawsky/posthtml-load-options?branch=develop
-
-[license]: https://img.shields.io/github/license/michael-ciniawsky/posthtml-load-options.svg
-[license-url]: https://raw.githubusercontent.com/michael-ciniawsky/posthtml-load-options/master/LICENSE
+[chat]: https://badges.gitter.im/posthtml/posthtml.svg
+[chat-url]: https://gitter.im/posthtml/posthtml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"
